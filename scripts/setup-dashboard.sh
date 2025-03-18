@@ -7,8 +7,8 @@ echo "Deploying Kubernetes Dashboard..."
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v3.0.0/aio/deploy/recommended.yaml
 
 echo "Creating ServiceAccount and ClusterRoleBinding..."
-kubectl apply -f configs/admin-user.yaml
-kubectl apply -f configs/admin-user-role.yaml
+kubectl apply -f configs/dashboard/dashboard-service-account.yaml
+kubectl apply -f configs/dashboard/dashboard-cluster-role-binding.yaml
 
 echo "Retrieving login token..."
 TOKEN=$(kubectl -n kubernetes-dashboard create token admin-user)
