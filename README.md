@@ -22,8 +22,11 @@ https://localhost:8443/
 Sealed secrets allow us to commit secrets to github in a safe manner along with all other K8s config.
 Install the controller and kubeseal as per instructions - https://github.com/bitnami-labs/sealed-secrets?tab=readme-ov-file
 
-### Create the sealed secret which you can commit to github e.g.
+### Create the sealed secret which you can commit to github e.g. from a file:
 `kubeseal --controller-namespace kube-system --format yaml < mysql-secret.yaml > sealed-mysql-secret.yaml`
+
+### Or pipe to avoid creating file:
+`echo "apiVersion: v1\nkind: Secret\nmetadata:\n  name: my-secret\ntype: Opaque\nstringData:\n  username: myuser\n  password: mypassword" | kubeseal --controller-namespace kube-system --format yaml > sealed-my-secret.yaml`
 
 ### Apply the secret
 `kubectl apply -f sealed-mysql-secret.yaml`
