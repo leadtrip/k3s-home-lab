@@ -10,19 +10,20 @@ This repository contains configurations and scripts to set up a home lab Kuberne
 
 # Dashboard
 ### Start the dashboard
-kubectl port-forward -n kubernetes-dashboard svc/kubernetes-dashboard 8443:443
+`kubectl port-forward -n kubernetes-dashboard svc/kubernetes-dashboard 8443:443`
 
 ### Get a token to login to the dashboard when already setup
-./scripts/get-dashboard-token.sh
+`./scripts/get-dashboard-token.sh`
 
 ### Go to the dashboard
 https://localhost:8443/
 
-# The project uses sealed secrets
+# Sealed secrets
+Sealed secrets allow us to commit secrets to github in a safe manner along with all other K8s config.
 Install the controller and kubeseal as per instructions - https://github.com/bitnami-labs/sealed-secrets?tab=readme-ov-file
 
 ### Create the sealed secret which you can commit to github e.g.
-kubeseal --controller-namespace kube-system --format yaml < mysql-secret.yaml > sealed-mysql-secret.yaml
+`kubeseal --controller-namespace kube-system --format yaml < mysql-secret.yaml > sealed-mysql-secret.yaml`
 
 ### Apply the secret
 `kubectl apply -f sealed-mysql-secret.yaml`
