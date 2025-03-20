@@ -23,3 +23,6 @@ Install the controller and kubeseal as per instructions - https://github.com/bit
 
 ### Create the sealed secret which you can commit to github e.g.
 kubeseal --controller-namespace kube-system --format yaml < mysql-secret.yaml > sealed-mysql-secret.yaml
+
+### Apply the secret
+`kubectl apply -f sealed-mysql-secret.yaml`
