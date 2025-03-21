@@ -30,3 +30,7 @@ Install the controller and kubeseal as per instructions - https://github.com/bit
 
 ### Apply the secret
 `kubectl apply -f sealed-mysql-secret.yaml`
+
+## MySQL database
+A MySQL database is created along with a ClusterIp service to allow command line access via a temporary MySQL client pod which you can create with:
+`kubectl run mysql-client --image=mysql:latest --rm -it --restart=Never --command -- mysql -h mysql -P 3306 -u myuser -pmysecretpassword mydb`
