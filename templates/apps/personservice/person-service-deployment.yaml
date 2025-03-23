@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: person-service
+  labels:
+    app: person-service
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: person-service
+  template:
+    metadata:
+      labels:
+        app: person-service
+    spec:
+      containers:
+        - name: person-service
+          image: mikew01/personservice-spring-app
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-clusterip:3306/mydb
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: password

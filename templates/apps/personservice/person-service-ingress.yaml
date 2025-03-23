@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: person-service
+  labels:
+    app: person-service
+spec:
+  rules:
+    - host: personservice.local
+      http:
+        paths:
+          - path: /people # API path prefix
+            pathType: Prefix
+            backend:
+              service:
+                name: person-service
+                port:
+                  number: 8080

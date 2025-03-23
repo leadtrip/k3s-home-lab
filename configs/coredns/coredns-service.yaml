@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: coredns
+  namespace: kube-system
+  labels:
+    k8s-app: coredns
+spec:
+  selector:
+    k8s-app: coredns
+  ports:
+    - name: dns
+      port: 53
+      protocol: UDP
+    - name: dns-tcp
+      port: 53
+      protocol: TCP
+  clusterIP: 10.43.0.254 # This IP address needs to be unique within the cluster
