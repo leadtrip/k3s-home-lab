@@ -41,9 +41,18 @@ Install & configuration (check current version in url)
 We're using Layer 2 config, follow the docs to create an [IPAddressPool](configs/metallb/metallb-ip-address-pool.yaml) and [L2Advertisement](configs/metallb/metallb-l2-advertisement.yaml) manifest.
 
 ## Apps
+At this stage we're accessing an app's endpoint using the external IP given by metallb to the associated service.\
+To get the app's external IP, get the service filtering by the service label e.g.\
+`kc get services -o wide -l app=person-service` \
+Then hit the endpoint like.\
+`curl http://192.168.86.200:8000/people`
 #### Person service
 A [simple spring boot](https://github.com/leadtrip/personservice) app, apply the manifests in this order:
 * person-service-deployment.yaml
 * person-service-service.yaml
 * person-service-ingress.yaml
 
+A few of the endpoints offered are:\
+http://EXTERNAL_ID:8080/people \
+http://EXTERNAL_ID:8080/people/1 \
+curl -i -H "Content-Type:application/json" -d '{"firstName": "Roger", "lastName": "Black"}' http://EXTERNAL_ID:8080/people
