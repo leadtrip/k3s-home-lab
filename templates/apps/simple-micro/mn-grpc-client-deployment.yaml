@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mn-grpc-client
+  labels:
+    app: mn-grpc-client
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mn-grpc-client
+  template:
+    metadata:
+      labels:
+        app: mn-grpc-client
+    spec:
+      containers:
+        - name: mn-grpc-client
+          image: mikew01/mn-grpc-client
+          ports:
+            - containerPort: 8099 # REST API port
+          env:
+            - name: GRPC_SERVER_HOST
+              value: sb-grpc-server

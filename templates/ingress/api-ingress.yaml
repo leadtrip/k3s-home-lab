@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+  labels:
+    app: api-ingress
+spec:
+  rules:
+    - host: personservice.local
+      http:
+        paths:
+          - path: /people
+            pathType: Prefix
+            backend:
+              service:
+                name: person-service
+                port:
+                  number: 8080
+          - path: /api/sayHi
+            pathType: Prefix
+            backend:
+              service:
+                name: mn-grpc-client
+                port:
+                  number: 8099

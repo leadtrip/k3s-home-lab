@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sb-grpc-server
+  labels:
+    app: sb-grpc-server
+spec:
+  selector:
+    app: sb-grpc-server
+  ports:
+    - protocol: TCP
+      port: 50052
+      targetPort: 50052
+  type:   ClusterIP
