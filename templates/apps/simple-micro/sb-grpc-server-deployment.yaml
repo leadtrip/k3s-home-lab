@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sb-grpc-server
+  labels:
+    app: sb-grpc-server
+    tier: backend
 spec:
   replicas: 1
   selector:
