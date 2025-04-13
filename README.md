@@ -47,12 +47,20 @@ To get the app's external IP, get the service filtering by the service label e.g
 Then hit the endpoint like.\
 `curl http://192.168.86.200:8000/people`
 #### Person service
-A [simple spring boot](https://github.com/leadtrip/personservice) app, apply the manifests in this order:
-* person-service-deployment.yaml
-* person-service-service.yaml
-* person-service-ingress.yaml
+A [simple spring boot](https://github.com/leadtrip/personservice) app
 
 A few of the endpoints offered are:\
 http://EXTERNAL_ID:8080/people \
 http://EXTERNAL_ID:8080/people/1 \
 curl -i -H "Content-Type:application/json" -d '{"firstName": "Roger", "lastName": "Black"}' http://EXTERNAL_ID:8080/people
+#### Spring GraphQL server
+A [spring boot graphql](https://github.com/leadtrip/sb-graphql-server) server
+`kc get services -o wide -l app=sb-graphql-server`
+Fire up the graphql playground e.g. `http://192.168.86.203:8181/graphiql?path=/graphql` \
+Or use curl: \
+```
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -d '{"query": "query personDetails {\n  personById(id: 1) {\n    id\n    firstName\n    lastName\n  }\n}"}' \
+     http://192.168.86.203:8181/graphql
+```

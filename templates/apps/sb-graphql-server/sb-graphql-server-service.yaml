@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sb-graphql-server
+  labels:
+    app: sb-graphql-server
+    type: loadbalancer
 spec:
   selector:
     app: sb-graphql-server
