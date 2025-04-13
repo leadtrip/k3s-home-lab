@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: sb-graphql-server
-          image: mikew01/sb-graphql-server:latest
+          image: mikew01/sb-graphql-server:v1.0.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8181
           env:
             - name: PERSON_SERVICE_HOST
               value: person-service
-            - name: SPRING_PROFILES_ACTIVE
-              value: k8s
+            - name: PERSON_SERVICE_PORT
+              value: "8080"
