@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sb-graphql-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sb-graphql-server
+  template:
+    metadata:
+      labels:
+        app: sb-graphql-server
+    spec:
+      containers:
+        - name: sb-graphql-server
+          image: mikew01/sb-graphql-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8181
+          env:
+            - name: PERSON_SERVICE_HOST
+              value: person-service
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s

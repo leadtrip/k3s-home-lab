@@ -23,3 +23,10 @@ spec:
                 name: mn-grpc-client
                 port:
                   number: 8099
+          - path: /graphql
+            pathType: Prefix
+            backend:
+              service:
+                name: sb-graphql-server
+                port:
+                  number: 8181
