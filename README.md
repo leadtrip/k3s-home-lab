@@ -50,17 +50,18 @@ Then hit the endpoint like.\
 A [simple spring boot](https://github.com/leadtrip/personservice) app
 
 A few of the endpoints offered are:\
-http://EXTERNAL_ID:8080/people \
-http://EXTERNAL_ID:8080/people/1 \
+http://EXTERNAL-IP:8080/people \
+http://EXTERNAL-Ip:8080/people/1 \
 curl -i -H "Content-Type:application/json" -d '{"firstName": "Roger", "lastName": "Black"}' http://EXTERNAL_ID:8080/people
 #### Spring GraphQL server
-A [spring boot graphql](https://github.com/leadtrip/sb-graphql-server) server
-`kc get services -o wide -l app=sb-graphql-server`
-Fire up the graphql playground e.g. `http://192.168.86.203:8181/graphiql?path=/graphql` \
+A [spring boot graphql](https://github.com/leadtrip/sb-graphql-server) server\
+First off get the EXTERNAL-IP with:\
+`kc get services -o wide -l app=sb-graphql-server`\
+Fire up the graphql playground e.g. `http://EXTERNAL-IP:8181/graphiql?path=/graphql` \
 Or use curl: \
 ```
 curl -X POST \
      -H "Content-Type: application/json" \
      -d '{"query": "query personDetails {\n  personById(id: 1) {\n    id\n    firstName\n    lastName\n  }\n}"}' \
-     http://192.168.86.203:8181/graphql
+     http://EXTERNAL-IP:8181/graphql
 ```
