@@ -70,7 +70,7 @@ A [simple spring boot](https://github.com/leadtrip/personservice) app
 A few of the endpoints offered are:\
 http://EXTERNAL-IP:8080/people \
 http://EXTERNAL-Ip:8080/people/1 \
-curl -i -H "Content-Type:application/json" -d '{"firstName": "Roger", "lastName": "Black"}' http://EXTERNAL_ID:8080/people
+`curl -i -H "Content-Type:application/json" -d '{"firstName": "Roger", "lastName": "Black"}' http://EXTERNAL_ID:8080/people`
 #### Spring GraphQL server
 A [spring boot graphql](https://github.com/leadtrip/sb-graphql-server) server\
 First off get the EXTERNAL-IP with:\
@@ -85,7 +85,9 @@ curl -X POST \
 ```
 #### Spring boot gRPC server
 A [spring boot gRPC server](https://github.com/leadtrip/sb-grpc-server) app\
-You can hit this server with the micronaut gRPC client app mentioned below or maybe with grpcurl like:\
+You can hit this server with the micronaut gRPC client app mentioned below or maybe with grpcurl as per below, first you'll need the CLUSTER-IP\
+`k get svc -o wide -l app=sb-grpc-server`\
+Then...\
 `grpcurl -d '{"name": "Mike"}' -plaintext CLUSTER-IP:50052 wood.mike.SimpleService.sayHi`
 
 #### Micronaut gRPC client
