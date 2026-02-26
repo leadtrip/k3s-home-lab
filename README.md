@@ -61,40 +61,39 @@ We're using Layer 2 config, follow the docs to create an [IPAddressPool](configs
 ## Apps
 At this stage we're accessing an app's endpoint using the external IP given by metallb to the associated service.\
 To get the app's external IP, get the service filtering by the service label e.g.\
-`kc get services -o wide -l app=person-service` \
-Then hit the endpoint like.\
-`curl http://192.168.86.200:8000/people`
-#### Person service
-A [simple spring boot](https://github.com/leadtrip/personservice) app
+`kc get services -o wide -l app=person-service` 
 
-A few of the endpoints offered are:\
-http://EXTERNAL-IP:8080/people \
-http://EXTERNAL-Ip:8080/people/1 \
+### Person service
+A [simple spring boot](https://github.com/leadtrip/personservice) app \
+Get the EXTERNAL-IP `kc get services -o wide -l app=person-service` \
+Get people: \
+`curl http://EXTERNAL-IP:8000/people` \
+`curl http://EXTERNAL-IP:8080/people/1` \
+Add a person: \
 `curl -i -H "Content-Type:application/json" -d '{"firstName": "Roger", "lastName": "Black"}' http://EXTERNAL_ID:8080/people`
-#### Spring GraphQL server
+### Spring boot GraphQL server
 A [spring boot graphql](https://github.com/leadtrip/sb-graphql-server) server\
-First off get the EXTERNAL-IP with:\
-`kc get services -o wide -l app=sb-graphql-server`\
+Get the EXTERNAL-IP `kc get services -o wide -l app=sb-graphql-server` \
 Fire up the graphql playground e.g. `http://EXTERNAL-IP:8181/graphiql?path=/graphql` \
-Or use curl: \
+Or use curl: 
 ```
 curl -X POST \
      -H "Content-Type: application/json" \
      -d '{"query": "query personDetails {\n  personById(id: 1) {\n    id\n    firstName\n    lastName\n  }\n}"}' \
      http://EXTERNAL-IP:8181/graphql
 ```
-#### Spring boot gRPC server
+### Spring boot gRPC server
 A [spring boot gRPC server](https://github.com/leadtrip/sb-grpc-server) app\
 You can hit this server with the micronaut gRPC client app mentioned below or maybe with grpcurl as per below, first you'll need the CLUSTER-IP\
 `k get svc -o wide -l app=sb-grpc-server`\
 Then...\
 `grpcurl -d '{"name": "Mike"}' -plaintext CLUSTER-IP:50052 wood.mike.SimpleService.sayHi`
 
-#### Micronaut gRPC client
+### Micronaut gRPC client
 A [micronaut gRPC client](https://github.com/leadtrip/mn-grpc-client) app that talks to the spring boot gRPC server\
-Get the EXTERNAL-IP with:\
+Get the EXTERNAL-IP:\
 `k get svc -o wide -l app=mn-grpc-client`\
 Send a curl request:\
 `curl EXTERNAL-IP:8099/api/sayHi/bob`\
-The final part of the url, bob as above can be anything.\
+The final part of the url, bob as above can be anything.
 
