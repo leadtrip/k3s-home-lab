@@ -9,7 +9,8 @@ spec:
   selector:
     app: sb-graphql-server
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 8181
       targetPort: 8181
   type: LoadBalancer

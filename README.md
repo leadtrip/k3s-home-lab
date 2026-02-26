@@ -16,6 +16,15 @@ This repository contains configurations and scripts to set up a home lab Kuberne
 ### Go to the dashboard
 https://localhost:8443/
 
+## Monitoring/observability 
+Prometheus and Grafana has been setup by terraform in this [project](https://github.com/leadtrip/terraform-playground/tree/master/kubernetes-local/monitoring-tools)\
+`kubectl port-forward svc/kube-prometheus-stack-prometheus 9090 -n monitoring`\
+`kubectl port-forward svc/kube-prometheus-stack-grafana 3000:80 -n monitoring`
+
+Then access the UIs at\
+http://localhost:9090/ \
+http://localhost:3000/
+
 ## [Sealed secrets](https://github.com/bitnami-labs/sealed-secrets)
 Sealed secrets allow us to commit secrets to github in a safe manner along with all other K8s config.
 Install the controller and kubeseal as per instructions - https://github.com/bitnami-labs/sealed-secrets?tab=readme-ov-file
