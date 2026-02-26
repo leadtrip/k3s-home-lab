@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: person-service
-          image: mikew01/personservice-spring-app
+          image: mikew01/personservice-spring-app:v1.0.0
           env:
             - name: SPRING_DATASOURCE_URL
               value: jdbc:mysql://mysql-clusterip:3306/mydb
