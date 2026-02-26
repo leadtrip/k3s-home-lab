@@ -44,6 +44,15 @@ A MySQL database is created along with a ClusterIp service to allow command line
 
 ## [Metallb](https://metallb.io/)
 #### A load balancer that can be used on bare metal kubernetes deployments that allows use of LoadBalancer
+You need to disable the bundled servicelb load balancer first.\
+Add (or create the file if need be) the following to `/etc/rancher/k3s/config.yaml`
+then restart k3s
+```yaml
+disable:
+- servicelb
+```
+`sudo systemctl restart k3s`\
+
 Install & configuration (check current version in url)
 
 `kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml` \
@@ -74,3 +83,16 @@ curl -X POST \
      -d '{"query": "query personDetails {\n  personById(id: 1) {\n    id\n    firstName\n    lastName\n  }\n}"}' \
      http://EXTERNAL-IP:8181/graphql
 ```
+#### Spring boot gRPC server
+A [spring boot gRPC server](https://github.com/leadtrip/sb-grpc-server) app\
+You can hit this server with the micronaut gRPC client app mentioned below or maybe with grpcurl like:\
+`grpcurl -d '{"name": "Mike"}' -plaintext CLUSTER-IP:50052 wood.mike.SimpleService.sayHi`
+
+#### Micronaut gRPC client
+A [micronaut gRPC client](https://github.com/leadtrip/mn-grpc-client) app that talks to the spring boot gRPC server\
+Get the EXTERNAL-IP with:\
+`k get svc -o wide -l app=mn-grpc-client`\
+Send a curl request:\
+`curl EXTERNAL-IP:8099/api/sayHi/bob`\
+The final part of the url, bob as above can be anything.\
+
