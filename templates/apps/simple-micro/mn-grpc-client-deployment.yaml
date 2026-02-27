@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: mn-grpc-client
-          image: mikew01/mn-grpc-client:v1.0.2
+          image: mikew01/mn-grpc-client:v1.2.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 8099 # REST API port
           env:

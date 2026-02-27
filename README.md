@@ -61,11 +61,11 @@ We're using Layer 2 config, follow the docs to create an [IPAddressPool](configs
 ## Apps
 At this stage we're accessing an app's endpoint using the external IP given by metallb to the associated service.\
 To get the app's external IP, get the service filtering by the service label e.g.\
-`kc get services -o wide -l app=person-service` 
+`k get services -o wide -l app=person-service` 
 
 ### Person service
 A [simple spring boot](https://github.com/leadtrip/personservice) app \
-Get the EXTERNAL-IP `kc get services -o wide -l app=person-service` \
+Get the EXTERNAL-IP `k get services -o wide -l app=person-service` \
 Get people: \
 `curl http://EXTERNAL-IP:8000/people` \
 `curl http://EXTERNAL-IP:8080/people/1` \
@@ -73,7 +73,7 @@ Add a person: \
 `curl -i -H "Content-Type:application/json" -d '{"firstName": "Roger", "lastName": "Black"}' http://EXTERNAL_ID:8080/people`
 ### Spring boot GraphQL server
 A [spring boot graphql](https://github.com/leadtrip/sb-graphql-server) server\
-Get the EXTERNAL-IP `kc get services -o wide -l app=sb-graphql-server` \
+Get the EXTERNAL-IP `k get services -o wide -l app=sb-graphql-server` \
 Fire up the graphql playground e.g. `http://EXTERNAL-IP:8181/graphiql?path=/graphql` \
 Or use curl: 
 ```

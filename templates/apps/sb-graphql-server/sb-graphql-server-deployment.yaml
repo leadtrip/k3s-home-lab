@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: sb-graphql-server
-          image: mikew01/sb-graphql-server:v1.1.0
+          image: mikew01/sb-graphql-server:v1.3.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8181
